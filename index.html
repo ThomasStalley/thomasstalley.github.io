@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capital & Beams</title>
+    <title>Beams Radio & Capital Fund</title>
+    <link rel="icon" href="https://beamsradio.com/static/images/favicon.ico" type="image/x-icon">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000000;
+            background-color: #333333;
             color: white;
             font-family: Arial, sans-serif;
+            overflow-y: auto;
         }
         .container {
-            width: 90%;
-            height: 80%;
-            display: flex;
-            gap: 20px;
-        }
-        .iframe-container {
-            flex: 1;
+            width: 100%;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .iframe-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
         }
         .title {
             text-align: center;
             margin-bottom: 10px;
             font-size: 1.2rem;
+        }
+        .beams-container {
+            width: 80%;
+            height: 80vh;
+        }
+        .capital-container {
+            width: 80%;
+            height: 80vh;
         }
         iframe {
             width: 100%;
@@ -44,13 +52,13 @@
 </head>
 <body>
     <div class="container">
-        <div class="iframe-container">
-            <div class="title">The Capital Fund</div>
-            <iframe src="https://capital.auchester.com" title="The Capital Fund"></iframe>
-        </div>
-        <div class="iframe-container">
+        <div class="iframe-container beams-container">
             <div class="title">Beams Radio Beta</div>
             <iframe src="https://beamsradio.com" title="Beams Radio Beta"></iframe>
+        </div>
+        <div class="iframe-container capital-container">
+            <div class="title">The Capital Fund</div>
+            <iframe src="https://capital.auchester.com" title="The Capital Fund"></iframe>
         </div>
     </div>
 </body>
