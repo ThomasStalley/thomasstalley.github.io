@@ -1,1 +1,1 @@
-Simple portfolio website for public projects.
+Simple portfolio website for public facing projects.
