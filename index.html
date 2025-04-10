@@ -14,32 +14,42 @@
             background-color: #333333;
             color: white;
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-            overflow-y: auto;
+            overflow: hidden;
         }
-        .container {
+        .gallery-container {
             width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
+            justify-content: center;
+            transition: transform 0.5s ease;
         }
         .iframe-container {
+            width: 90%;
+            height: 85vh;
             display: flex;
             flex-direction: column;
-            margin-bottom: 40px;
         }
         .title {
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        .beams-container {
-            width: 80%;
-            height: 95vh;
-        }
-        .capital-container {
-            width: 80%;
-            height: 95vh;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            padding: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
         iframe {
             width: 100%;
@@ -48,18 +58,246 @@
             border-radius: 0.2rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+        .navigation {
+            position: absolute;
+            width: 100%;
+            bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .nav-dot.active {
+            background-color: white;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .arrow:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .arrow.left {
+            left: 20px;
+        }
+        .arrow.right {
+            right: 20px;
+        }
+        
+        /* GitHub Corner */
+        .github-corner {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 20;
+        }
+        .github-corner:hover .octo-arm {
+            animation: octocat-wave 560ms ease-in-out;
+        }
+        @keyframes octocat-wave {
+            0%, 100% { transform: rotate(0); }
+            20%, 60% { transform: rotate(-25deg); }
+            40%, 80% { transform: rotate(10deg); }
+        }
+        @media (max-width: 500px) {
+            .github-corner:hover .octo-arm {
+                animation: none;
+            }
+            .github-corner .octo-arm {
+                animation: octocat-wave 560ms ease-in-out;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="iframe-container beams-container">
-            <div class="title">Beams Radio Beta</div>
-            <iframe src="https://beamsradio.com" title="Beams Radio Beta"></iframe>
+    <div class="gallery-container">
+        <a href="https://github.com/thomasstalley" class="github-corner" aria-label="View source on GitHub">
+            <svg width="60" height="60" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+                <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+                <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+                <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+            </svg>
+        </a>
+        <div class="slides-container">
+            <div class="slide" id="slide-0" style="transform: translateX(0);">
+                <div class="iframe-container">
+                    <div class="title">Beams Radio Beta</div>
+                    <iframe src="https://beamsradio.com" title="Beams Radio Beta"></iframe>
+                </div>
+            </div>
+            <div class="slide" id="slide-1" style="transform: translateX(100%);">
+                <div class="iframe-container">
+                    <div class="title">The Capital Fund</div>
+                    <iframe src="https://capital.auchester.com" title="The Capital Fund"></iframe>
+                </div>
+            </div>
         </div>
-        <div class="iframe-container capital-container">
-            <div class="title">The Capital Fund</div>
-            <iframe src="https://capital.auchester.com" title="The Capital Fund"></iframe>
+
+        <button class="arrow left" onclick="navigate(-1)" id="leftArrow" style="display: none;">&#8249;</button>
+        <button class="arrow right" onclick="navigate(1)" id="rightArrow">&#8250;</button>
+
+        <div class="navigation">
+            <div class="nav-dot active" onclick="goToSlide(0)"></div>
+            <div class="nav-dot" onclick="goToSlide(1)"></div>
         </div>
     </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 2;
+        const slides = document.querySelectorAll('.slide');
+        
+        // Direction: 1 = right, -1 = left
+        function navigate(direction) {
+            // Calculate new slide index
+            const newSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            
+            // Update current slide value
+            const prevSlide = currentSlide;
+            currentSlide = newSlide;
+            
+            // Position all slides based on direction
+            if (direction === 1) {
+                // Moving right - next slide comes from right
+                slides[prevSlide].style.transform = 'translateX(-100%)';
+                slides[newSlide].style.transform = 'translateX(0)';
+            } else {
+                // Moving left - next slide comes from left
+                slides[prevSlide].style.transform = 'translateX(100%)';
+                slides[newSlide].style.transform = 'translateX(0)';
+            }
+            
+            // Update nav dots
+            updateNavDots();
+            
+            // Reset non-visible slides after transition
+            setTimeout(() => {
+                slides.forEach((slide, i) => {
+                    if (i !== currentSlide) {
+                        // Remove transition temporarily
+                        slide.style.transition = 'none';
+                        
+                        // Position off-screen based on index relative to current
+                        if (i < currentSlide || (currentSlide === 0 && i === totalSlides - 1)) {
+                            slide.style.transform = 'translateX(-100%)';
+                        } else {
+                            slide.style.transform = 'translateX(100%)';
+                        }
+                        
+                        // Force reflow
+                        void slide.offsetWidth;
+                        
+                        // Restore transition
+                        slide.style.transition = 'transform 0.5s ease';
+                    }
+                });
+            }, 500); // Match transition duration
+        }
+        
+        function goToSlide(index) {
+            if (index === currentSlide) return;
+            
+            // Determine direction based on index
+            const direction = (index > currentSlide) ? 1 : -1;
+            navigate(direction);
+        }
+        
+        function updateNavDots() {
+            const dots = document.querySelectorAll('.nav-dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+            
+            // Update arrow visibility based on current slide
+            const leftArrow = document.getElementById('leftArrow');
+            const rightArrow = document.getElementById('rightArrow');
+            
+            if (currentSlide === 0) {
+                // On Beams Radio, show only right arrow
+                leftArrow.style.display = 'none';
+                rightArrow.style.display = 'flex';
+            } else {
+                // On Capital Fund, show only left arrow
+                leftArrow.style.display = 'flex';
+                rightArrow.style.display = 'none';
+            }
+        }
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                navigate(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigate(1);
+            }
+        });
+        
+        // Add swipe functionality for touch devices
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swipe left - show next (right)
+                navigate(1);
+            } else if (touchEndX > touchStartX + swipeThreshold) {
+                // Swipe right - show previous (left)
+                navigate(-1);
+            }
+        }
+        
+        // Initialize slide positions
+        function initializeSlides() {
+            slides.forEach((slide, i) => {
+                if (i === 0) {
+                    slide.style.transform = 'translateX(0)';
+                } else if (i === 1) {
+                    slide.style.transform = 'translateX(100%)';
+                }
+            });
+        }
+        
+        // Initialize on load
+        initializeSlides();
+        
+        // Set initial arrow visibility
+        updateNavDots();
+    </script>
 </body>
 </html>
